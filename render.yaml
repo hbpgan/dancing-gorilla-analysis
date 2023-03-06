@@ -9,8 +9,9 @@ services:
   - type: web
     name: dga
     env: python
+    region: singapore
     buildCommand: "./build.sh"
-    startCommand: "gunicorn mysite.wsgi:application"
+    startCommand: "gunicorn dga.wsgi:application"
     plan: free
     branch: main
     envVars:
