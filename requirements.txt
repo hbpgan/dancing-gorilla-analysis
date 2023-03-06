@@ -9,3 +9,4 @@ requests
 py_bsor
 pyquaternion
 gunicorn
+gevent
