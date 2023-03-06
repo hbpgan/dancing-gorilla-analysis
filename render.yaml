@@ -1,0 +1,24 @@
+databases:
+  - name: dga_db
+    region: singapore
+    plan: free
+    databaseName: dga_db
+    user: dga_db_user
+
+services:
+  - type: web
+    name: dga
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn mysite.wsgi:application"
+    plan: free
+    branch: main
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: dga_db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4

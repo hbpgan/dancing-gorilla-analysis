@@ -1,0 +1,10 @@
+myvenv
+db.sqlite3
+.vscode
+/.vscode
+__pycache__
+*.pyc
+.DS_Store
+.env
+*~
+/static
