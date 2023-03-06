@@ -3,7 +3,7 @@ services:
     name: dga
     env: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn --worker-class gevent bsapps.wsgi:application"
+    startCommand: "gunicorn -w 50 --worker-class gevent bsapps.wsgi:application"
     plan: free
     branch: main
     envVars:
