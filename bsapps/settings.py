@@ -65,7 +65,7 @@ ROOT_URLCONF = "bsapps.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -139,6 +139,7 @@ if not DEBUG:    # Tell Django to copy statics to the `staticfiles` directory
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-SUPERUSER_NAME = env("SUPERUSER_NAME")
-SUPERUSER_EMAIL = env("SUPERUSER_EMAIL")
-SUPERUSER_PASSWORD = env("SUPERUSER_PASSWORD")
+if not DEBUG:
+    SUPERUSER_NAME = env("SUPERUSER_NAME")
+    SUPERUSER_EMAIL = env("SUPERUSER_EMAIL")
+    SUPERUSER_PASSWORD = env("SUPERUSER_PASSWORD")
