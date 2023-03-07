@@ -42,4 +42,29 @@
 </table>
 <p class="center">ダンサー指数は{{headbanging|floatformat:2}}、ゴリラ指数は{{gorilla|floatformat:2}}です。</p>
 <p class="center">あなたは{{dancer_rank}}{{gorilla_rank}}です。</p>
-<p class="center">(<a href="{% url 'qa' %}">これは何？</a>)</p>
+<p class="center">(<a href="{% url 'qa' %}">診断に関するQ&amp;A</a>)</p>
+<p> <br><br><br> </p>
+<table>
+	<tbody>
+		<tr>
+			<td colspan="2" class="center">ReplayInfo</td>
+		</tr>
+		<tr>
+			<td>Replay URL:</td>
+			<td><a href="{{webplayer_url}}"> {{webplayer_url}}</a></td>
+		</tr>
+		<tr>
+			<td>Song (Mapper):</td>
+			<td>{{m.info.songName}} [{{m.info.difficulty}}] ({{m.info.mapper}})</td>
+		</tr>
+		<tr>
+			<td>Player:</td>
+			<td>{{m.info.playerName}} (<a href="https://www.beatleader.xyz/u/{{m.info.playerId}}">BeatLeaderProfile</a>)</td>
+		</tr>
+		<tr>
+			<td>Device:</td>
+			<td>HMD: {{m.info.hmd}}
+<br>Controller: {{m.info.controller}}</td>
+		</tr>
+	</tbody>
+</table>
