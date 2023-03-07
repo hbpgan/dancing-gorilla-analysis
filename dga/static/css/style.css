@@ -1,8 +1,58 @@
 .center {
-    text-align: center;
-    color: black;
-  }
-form {
-  width: 500px;
-  height: 300px;
+  text-align: center;
+  color: black;
+}
+
+input {
+  text-align: center;
+}
+
+footer {
+  position: absolute;
+  left: 50%;
+  right: 0;
+  margin: auto;
+  bottom: 0;
+}
+
+table {
+  margin: auto
+}
+
+td,
+th {
+  padding: 5px;
+  width: 30px;
+  height: 25px;
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+th {
+  background: #f0e6cc;
+}
+
+.even {
+  background: #000000;
+}
+
+.odd {
+  background: #fefcf9;
+}
+
+.faq{
+  padding: 1em;
+  border-radius: 1em;
+}
+.faq dt{
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  border-bottom: 1px dotted;
+  font-weight: bold;
+}
+.faq dd{
+  margin-bottom: 2em;
+}
+.faq dd:last-child{
+  margin-bottom: 0;
 }

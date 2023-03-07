@@ -7,13 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Hello Django on Render</title>
+    <title>Dancing Gorilla Analysis</title>
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 </head>
 <body>
     <h1 class="center">ダンシングジェダイ診断</h1>
-    <p class="center">BeatLeaderのリプレイを読み込んで、頭と手の移動距離と回転角を算出するよ。リプレイのURLを送信して少しの間お待ちください。</p>
+    <p class="center">BeatLeaderのリプレイを読み込んで、頭と手の移動距離と回転角を算出するよ。ついでにあなたのプレイスタイルを診断します。</p>
+    <p class="center"><br>リプレイのURLを送信して1,2分ほどお待ちください。</p>
     <p class="center">リプレイのアイコンを右クリックして「リンクのアドレスをコピー」、またはリプレイ画面で右クリックして「Copy URL」からコピーできます。</p>
     <p class="center">例: <a href="https://replay.beatleader.xyz/?scoreId=4922306">https://replay.beatleader.xyz/?scoreId=4922306</a></p>
     <div style="text-align: center;">
@@ -22,5 +23,8 @@
           <input type="submit" value="送信">
        </form>
     </div>
+    <footer>
+        <p><a href="https://github.com/hbpgan/dancing-gorilla-analysis/tree/main">Github</a>   <a href="{% url 'qa' %}">FAQ</a> </p>
+    </footer>
 </body>
 </html>

@@ -1,0 +1,146 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Q and A</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body>
+    <dl class="faq">
+        <dt>HeadDistanceTravelledでの計測結果と頭の移動距離が違います。どうしてですか？</dt>
+        <dd>MODの方ではthresholdにより僅かな動きは無視していますが、ここではリプレイに記録された頭と手の移動量すべてを算出しています。
+            <br>最初のノーツを切ってから最後のノーツを切るまでの間しか見ていないのは同様です。</dd>
+        <dt>手を毎秒4mくらい動かしてるっておかしくないですか？</dt>
+        <dd>おそらくコントローラの位置ではなく、セイバーの判定の根本あたりを見ているのだと思われます。</dd>
+        <dt>診断結果はどういう基準で決まっていますか？</dt>
+        <dd>頭の速度[m/s] * 100 + 頭の角速度[deg/s] / 3 をダンサー指数
+            <br>両手の速度[m/s] * 10 + (両手の角速度[deg/s] / NPS) / 3 をゴリラ指数
+            <br>としています。NPSは譜面のNotes per Secondです。これらの指標をもとに以下の表から決まっています。
+            <br><br>
+            <TABLE BORDER="0" align="left">
+            <TR>
+            <TD>
+            <table border="1" cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td>ダンサー指数</td>
+                        <td>診断結果</td>
+                    </tr>
+                    <tr>
+                        <td>8以下</td>
+                        <td>世界樹</td>
+                    </tr>
+                    <tr>
+                        <td>8-11</td>
+                        <td>動かざること山の如し</td>
+                    </tr>
+                    <tr>
+                        <td>11-15</td>
+                        <td>超ぼったち</td>
+                    </tr>
+                    <tr>
+                        <td>15-20</td>
+                        <td>ぼったち</td>
+                    </tr>
+                    <tr>
+                        <td>20-25</td>
+                        <td>ぼったち気味</td>
+                    </tr>
+                    <tr>
+                        <td>25-30</td>
+                        <td>あまり動かない</td>
+                    </tr>
+                    <tr>
+                        <td>30-35</td>
+                        <td>ちょっと動く</td>
+                    </tr>
+                    <tr>
+                        <td>35-45</td>
+                        <td>ちょっとノリノリ</td>
+                    </tr>
+                    <tr>
+                        <td>45-55</td>
+                        <td>ノリノリ</td>
+                    </tr>
+                    <tr>
+                        <td>55-65</td>
+                        <td>かなりノリノリ</td>
+                    </tr>
+                    <tr>
+                        <td>65-80</td>
+                        <td>ダンシング</td>
+                    </tr>
+                    <tr>
+                        <td>80-100</td>
+                        <td>エキサイティング</td>
+                    </tr>
+                    <tr>
+                        <td>100-120</td>
+                        <td>超エキサイティング</td>
+                    </tr>
+                    <tr>
+                        <td>120以上</td>
+                        <td>超ッ！エキサイティンッ！</td>
+                    </tr>
+                </tbody>
+            </table>
+            </TD>
+            <TD>
+            <table border="1" cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td>ゴリラ指数</td>
+                        <td>診断結果</td>
+                    </tr>
+                    <tr>
+                        <td>110以下</td>
+                        <td>まったりジェダイ</td>
+                    </tr>
+                    <tr>
+                        <td>110-130</td>
+                        <td>穏やかジェダイ</td>
+                    </tr>
+                    <tr>
+                        <td>130-160</td>
+                        <td>ジェダイ</td>
+                    </tr>
+                    <tr>
+                        <td>160-170</td>
+                        <td>ゴリラジェダイ</td>
+                    </tr>
+                    <tr>
+                        <td>170-180</td>
+                        <td>ゴリラ</td>
+                    </tr>
+                    <tr>
+                        <td>180-190</td>
+                        <td>暴れゴリラ</td>
+                    </tr>
+                    <tr>
+                        <td>190-210</td>
+                        <td>大暴れゴリラ</td>
+                    </tr>
+                    <tr>
+                        <td>210-240</td>
+                        <td>超大暴れゴリラ</td>
+                    </tr>
+                    <tr>
+                        <td>240以上</td>
+                        <td>ゴッドゴリラ</td>
+                    </tr>
+                </tbody>
+            </table>
+            </TD>
+            </TR>
+            </TABLE>
+        </dd>
+      </dl>
+      
+</body>
+</html>

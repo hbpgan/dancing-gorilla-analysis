@@ -1,2 +1,45 @@
-<p>{{ total_head_distance }}</p>
-<p>{{ m.info.mode }}</p>
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Result</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<h1 class="center">分析結果</h1>
+<table>
+	<tbody>
+		<tr>
+			<td>頭の移動距離は{{total_head_distance|floatformat:3}}m</td>
+			<td>1秒あたり{{hdps|floatformat:3}}m</td>
+		</tr>
+		<tr>
+			<td>頭の回転角度は{{total_head_angle|floatformat:3}}°</td>
+			<td>1秒あたり{{haps|floatformat:3}}°</td>
+		</tr>
+		<tr>
+			<td>左手の移動距離は{{total_left_distance|floatformat:3}}m</td>
+			<td>1秒あたり{{ldps|floatformat:3}}m</td>
+		</tr>
+		<tr>
+			<td>左手の回転角度は{{total_left_angle|floatformat:3}}°</td>
+			<td>1秒あたり{{laps|floatformat:3}}°</td>
+		</tr>
+		<tr>
+			<td>右手の移動距離は{{total_right_distance|floatformat:3}}m</td>
+			<td>1秒あたり{{rdps|floatformat:3}}m</td>
+		</tr>
+		<tr>
+			<td>右手の回転角度は{{total_right_angle|floatformat:3}}°</td>
+			<td>1秒あたり{{raps|floatformat:3}}°</td>
+		</tr>
+	</tbody>
+</table>
+<p class="center">ダンサー指数は{{headbanging|floatformat:2}}、ゴリラ指数は{{gorilla|floatformat:2}}です。</p>
+<p class="center">あなたは{{dancer_rank}}{{gorilla_rank}}です。</p>
+<p class="center">(<a href="{% url 'qa' %}">これは何？</a>)</p>
