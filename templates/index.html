@@ -14,15 +14,34 @@
 <body>
     <h1 class="center">ダンシングジェダイ診断</h1>
     <p class="center">BeatLeaderのリプレイを読み込んで、頭と手の移動距離と回転角を算出するよ。ついでにあなたのプレイスタイルを診断します。</p>
-    <p class="center"><br>リプレイのURLを送信して数分お待ちください。<br>(サーバーの処理能力的に4人以上同時にするとタイムアウトすることがあります。ダメそうならまた後でやってみてね)</p>
+    <p class="center"><br>リプレイのURLを送信して数分お待ちください。フレーム数分の処理を行うため少し時間がかかります。<br>(サーバーの処理能力的に4人以上同時にするとタイムアウトすることがあります。ダメそうならまた後でやってみてね)</p>
     <p class="center">リプレイのアイコンを右クリックして「リンクのアドレスをコピー」、またはリプレイ画面で右クリックして「Copy URL」からコピーできます。</p>
     <p class="center">例: <a href="https://replay.beatleader.xyz/?scoreId=4922306">https://replay.beatleader.xyz/?scoreId=4922306</a></p>
     <div style="text-align: center;">
-        <form action="{% url 'result' %}" method="get">
+        <form id="my-form" action="{% url 'result' %}" method="get">
             {{ form }}
           <input type="submit" value="送信">
        </form>
     </div>
+    <script>
+        // フォームを取得
+        var form = document.getElementById("my-form");
+        // フォームが送信されたときのイベントリスナーを設定
+        form.addEventListener("submit", function(event) {
+          // submitボタンを取得
+          var button = form.querySelector("input[type='submit']");
+          // submitボタンを無効化
+          button.disabled = true;
+          // submitボタンの値を変更（オプション）
+          button.value = "解析中...しばらくお待ち下さい...";
+        });
+        // 戻るボタンでキャッシュが読み込まれてもリロードして送信ボタンを復活させる
+        window.onpageshow = function(event) {
+            if (event.persisted) {
+                 window.location.reload();
+            }
+        };
+      </script>
     <footer>
         <p><a href="https://github.com/hbpgan/dancing-gorilla-analysis/tree/main">Github</a></p>
     </footer>
