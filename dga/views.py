@@ -1,6 +1,7 @@
 from django.views.generic import View
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.conf import settings
 import requests
 from bsor.Bsor import make_bsor
 import os
@@ -29,7 +30,28 @@ def result(request):
             return render(request, 'result.html', analyzed_data)
         else:
             return render(request, 'index.html', {'form': form})
+            
+def registration(request):
+  if request.method == "POST":
+    data = request.POST
+    post_url = 'https://jbsl-web.herokuapp.com/api/dga/post'
+    post_data = {
+        'dance' : round(float(data['headbanging']), 2),
+        'gorilla' : round(float(data['gorilla']), 2),
+        'beatleader' : data['score_id'],
+        'song_mapper' : data['song_info'],
+        'player_name' : data['player_name'],
+        'sid' : data['player_id'],
+        'token' : settings.JBSL_TOKEN
+    }
+    
+    res = requests.post(post_url,data=post_data)
+    
+    context = res.json()
+    print(res.json())    
+    return render(request, 'registration.html', context)
 
+    
 def analyze_replay(webplayer_url):
     parsed = urlparse(webplayer_url)
     query = parse_qs(parsed.query)

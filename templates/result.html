@@ -40,10 +40,28 @@
 		</tr>
 	</tbody>
 </table>
-<p class="center">ダンサー指数は{{headbanging|floatformat:2}}、ゴリラ指数は{{gorilla|floatformat:2}}です。</p>
-<p class="center">あなたは{{dancer_rank}}{{gorilla_rank}}です。</p>
+<p class="center">ダンサー指数は{{headbanging|floatformat:2}}、ゴリラ指数は{{gorilla|floatformat:2}}です。
+	<br>あなたは『{{dancer_rank}}{{gorilla_rank}}』です。
+</p>
 <p class="center">(<a href="{% url 'qa' %}">診断に関するQ&amp;A</a>)</p>
-<p> <br><br><br> </p>
+<br>
+<h2 class="center"><a href="">ランキング</a></h2>
+<p class="center">この分析結果をランキングに登録しますか？
+	<br>(あなた自身のリプレイでない場合、必ずプレイヤー本人に許可を得てください)</p>
+	<div style="text-align: center;">
+		<form action="{% url 'registration' %}" method="post">
+			{% csrf_token %}
+			<input type="hidden" name="headbanging" value="{{headbanging}}">
+			<input type="hidden" name="gorilla" value="{{gorilla}}">
+			<input type="hidden" name="score_id" value="{{score_id}}">
+			<input type="hidden" name="webplayer_url" value="{{webplayer_url}}">
+			<input type="hidden" name="song_info" value="{{m.info.songName}} [{{m.info.difficulty}}] ({{m.info.mapper}})">
+			<input type="hidden" name="player_name" value="{{m.info.playerName}}">
+			<input type="hidden" name="player_id" value="{{m.info.playerId}}">
+			<input type="submit" value="登録する" onclick="return confirm('本当に登録しますか？');">
+	 	</form>
+	</div>
+<p> <br></p>
 <table>
 	<tbody>
 		<tr>

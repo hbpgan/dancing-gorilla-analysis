@@ -30,9 +30,7 @@
         form.addEventListener("submit", function(event) {
           // submitボタンを取得
           var button = form.querySelector("input[type='submit']");
-          // submitボタンを無効化
           button.disabled = true;
-          // submitボタンの値を変更（オプション）
           button.value = "解析中...しばらくお待ち下さい...";
         });
         // 戻るボタンでキャッシュが読み込まれてもリロードして送信ボタンを復活させる
