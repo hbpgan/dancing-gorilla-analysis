@@ -90,6 +90,8 @@ def leaderboard(request):
             r = requests.get(jbsl_url + "?sid=" + sid + "&sort=dance&limit=3")
             db_worldtree[sid] = r.json()
             total = round(sum([d['dance'] for d in db_worldtree[sid]]), 2)
+            if len(db_worldtree[sid]) < 3:
+                total = 999
             sum_d[sid] = total
             db_worldtree[sid][0]['total'] = total #htmlのloopで参照できるように
         sorted_worldtree = dict(sorted(sum_d.items(), key=lambda x: x[1], reverse=False))
