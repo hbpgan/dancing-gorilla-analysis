@@ -83,7 +83,7 @@ def leaderboard(request):
         sorted_dance = dict(sorted(sum_d.items(), key=lambda x: x[1], reverse=True))
         db_dance = {key: db_dance[key] for key in sorted_dance}
         
-        #ダンサー
+        #ぼったち
         db_worldtree = {}
         sum_d = {}
         for sid in unique_sid:
@@ -92,7 +92,7 @@ def leaderboard(request):
             total = round(sum([d['dance'] for d in db_worldtree[sid]]), 2)
             sum_d[sid] = total
             db_worldtree[sid][0]['total'] = total #htmlのloopで参照できるように
-        sorted_worldtree = dict(sorted(sum_d.items(), key=lambda x: x[1], reverse=True))
+        sorted_worldtree = dict(sorted(sum_d.items(), key=lambda x: x[1], reverse=False))
         db_worldtree = {key: db_worldtree[key] for key in sorted_worldtree}
         
         #大暴れ度
