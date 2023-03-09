@@ -1,0 +1,196 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Leaderboard</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<h2 class="center">Leaderboard</h2>
+<body class="center">
+<a id="textA" href="#">ダンサー指数ランキング</a>
+&emsp;
+<a id="textB" href="#">ゴリラ指数ランキング</a>
+<br>
+<a id="textC" href="#">大暴れランキング</a>
+&emsp;
+<a id="textD" href="#">ぼったちランキング</a>
+<br>
+</body>
+<div style="display:flex; justify-content:center; text-align: left;">
+<table id="dance">
+    <caption><h3>ダンサー指数ランキング</h3></caption>
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Total Score</th>
+            <th>1st Score</th>
+            <th>2nd Score</th>
+            <th>3rd Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sid, scores in db_dance.items %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td style="width:150px"><a href="https://www.beatleader.xyz/u/{{ scores.0.sid }}">{{ scores.0.player_name }}</a></td>
+            <td>{{ scores.0.total }}</td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.0.beatleader }}">{{ scores.0.dance }}</a></td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.1.beatleader }}">{{ scores.1.dance }}</a></td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.2.beatleader }}">{{ scores.2.dance }}</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<table id="gorilla">
+    <caption>
+        <h3>ゴリラ指数ランキング</h3>
+    </caption>
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Total Score</th>
+            <th>1st Score</th>
+            <th>2nd Score</th>
+            <th>3rd Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sid, scores in db_gorilla.items %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td style="width:150px"><a href="https://www.beatleader.xyz/u/{{ scores.0.sid }}">{{ scores.0.player_name }}</a></td>
+            <td>{{ scores.0.total }}</td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.0.beatleader }}">{{ scores.0.gorilla }}</a></td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.1.beatleader }}">{{ scores.1.gorilla }}</a></td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.2.beatleader }}">{{ scores.2.gorilla }}</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<table id="exiting">
+    <caption>
+        <h3>大暴れ度ランキング</h3>
+    </caption>
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Total Score</th>
+            <th>1st Score</th>
+            <th>2nd Score</th>
+            <th>3rd Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sid, scores in db_exiting.items %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td style="width:150px"><a href="https://www.beatleader.xyz/u/{{ scores.0.sid }}">{{ scores.0.player_name }}</a></td>
+            <td>{{ scores.0.total }}</td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.0.beatleader }}">{{ scores.0.exiting }}</a></td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.1.beatleader }}">{{ scores.1.exiting }}</a></td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.2.beatleader }}">{{ scores.2.exiting }}</a></td>
+        </tr>
+        {% endfor %}
+        <tr><td colspan="5" style="text-align: center;">大暴れ度: ダンサー*2 + ゴリラ</td></tr>
+    </tbody>
+</table>
+<table id="worldtree">
+    <caption>
+        <h3>ぼったちランキング</h3>
+    </caption>
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Total Score</th>
+            <th>1st Score</th>
+            <th>2nd Score</th>
+            <th>3rd Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sid, scores in db_worldtree.items %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td style="width:150px"><a href="https://www.beatleader.xyz/u/{{ scores.0.sid }}">{{ scores.0.player_name }}</a></td>
+            <td>{{ scores.0.total }}</td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.0.beatleader }}">{{ scores.0.dance }}</a></td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.1.beatleader }}">{{ scores.1.dance }}</a></td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.2.beatleader }}">{{ scores.2.dance }}</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+<br>
+<p class="center"><a href="{% url 'scoreboard' %}">スコアランキングはこちら</a></p>
+
+<!-- CSS -->
+<style type="text/css">
+    td {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
+</style>
+
+<!-- JavaScript -->
+<script type="text/javascript">
+    // テキストとテーブルの要素を取得する
+    var textA = document.getElementById("textA");
+    var textB = document.getElementById("textB");
+    var textC = document.getElementById("textC");
+    var textD = document.getElementById("textD");
+    var tableA = document.getElementById("dance");
+    var tableB = document.getElementById("gorilla");
+    var tableC = document.getElementById("exiting");
+    var tableD = document.getElementById("worldtree");
+
+    // 最初はテーブルAだけ表示する
+    tableA.style.display = "block";
+    tableB.style.display = "none";
+    tableC.style.display = "none";
+    tableD.style.display = "none";
+
+    // テキストAがクリックされたらテーブルAを表示し、他のテーブルを非表示にする
+    textA.addEventListener("click", function (e) {
+        // ページ遷移を防ぐ
+        e.preventDefault();
+        tableA.style.display = "block";
+        tableB.style.display = "none";
+        tableC.style.display = "none";
+        tableD.style.display = "none";
+    });
+    textB.addEventListener("click", function (e) {
+        e.preventDefault();
+        tableA.style.display = "none";
+        tableB.style.display = "block";
+        tableC.style.display = "none";
+        tableD.style.display = "none";
+    });
+
+    textC.addEventListener("click", function (e) {
+        e.preventDefault();
+        tableA.style.display = "none";
+        tableB.style.display = "none";
+        tableC.style.display = "block";
+        tableD.style.display = "none";
+    });
+    textD.addEventListener("click", function (e) {
+        e.preventDefault();
+        tableA.style.display = "none";
+        tableB.style.display = "none";
+        tableC.style.display = "none";
+        tableD.style.display = "block";
+    });    
+</script>

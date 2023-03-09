@@ -43,11 +43,18 @@
 <p class="center">ダンサー指数は{{headbanging|floatformat:2}}、ゴリラ指数は{{gorilla|floatformat:2}}です。
 	<br>あなたは『{{dancer_rank}}{{gorilla_rank}}』です。
 </p>
+
+<div style="text-align: center">
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="頭の移動距離は{{total_head_distance|floatformat:3}}m！ダンサー指数は{{headbanging|floatformat:2}}、ゴリラ指数は{{gorilla|floatformat:2}}。あなたは『{{dancer_rank}}{{gorilla_rank}}』です！#DancingGorillaAnalysis"
+	data-url="https://dga-you9.onrender.com/" data-show-count="false">Tweet</a>
+</div>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 <p class="center">(<a href="{% url 'qa' %}">診断に関するQ&amp;A</a>)</p>
 <br>
-<h2 class="center"><a href="">ランキング</a></h2>
+<h3 class="center"><a href="{% url 'leaderboard' %}">プレイヤーランキング</a>　　<a href="{% url 'scoreboard' %}">スコアランキング</a></h3>
 <p class="center">この分析結果をランキングに登録しますか？
-	<br>(あなた自身のリプレイでない場合、必ずプレイヤー本人に許可を得てください)</p>
+	<br><div style="font-weight: bold; text-align: center;">(あなた自身のリプレイでない場合、必ずプレイヤー本人に許可を得てください)</div></p>
 	<div style="text-align: center;">
 		<form action="{% url 'registration' %}" method="post">
 			{% csrf_token %}

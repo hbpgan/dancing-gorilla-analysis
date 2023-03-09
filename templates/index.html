@@ -15,8 +15,9 @@
     <h1 class="center">ダンシングジェダイ診断</h1>
     <p class="center">BeatLeaderのリプレイを読み込んで、頭と手の移動距離と回転角を算出するよ。ついでにあなたのプレイスタイルを診断します。</p>
     <p class="center"><br>リプレイのURLを送信して数分お待ちください。フレーム数分の処理を行うため少し時間がかかります。<br>(サーバーの処理能力的に4人以上同時にするとタイムアウトすることがあります。ダメそうならまた後でやってみてね)</p>
-    <p class="center">リプレイのアイコンを右クリックして「リンクのアドレスをコピー」、またはリプレイ画面で右クリックして「Copy URL」からコピーできます。</p>
-    <p class="center">例: <a href="https://replay.beatleader.xyz/?scoreId=4922306">https://replay.beatleader.xyz/?scoreId=4922306</a></p>
+    <p class="center">リプレイのアイコンを右クリックして「リンクのアドレスをコピー」、またはリプレイ画面で右クリックして「Copy URL」からコピーできます。
+        <br>例: <a href="https://replay.beatleader.xyz/?scoreId=4922306">https://replay.beatleader.xyz/?scoreId=4922306</a></p>
+    <br>
     <div style="text-align: center;">
         <form id="my-form" action="{% url 'result' %}" method="get">
             {{ form }}
@@ -40,6 +41,9 @@
             }
         };
       </script>
+      <br>
+<p class="center"><a href="{% url 'leaderboard' %}">プレイヤーランキングを見る</a></p>
+<p class="center"><a href="{% url 'scoreboard' %}">スコアランキングを見る</a></p>
     <footer>
         <p><a href="https://github.com/hbpgan/dancing-gorilla-analysis/tree/main">Github</a></p>
     </footer>

@@ -51,7 +51,110 @@ def registration(request):
     print(res.json())    
     return render(request, 'registration.html', context)
 
-    
+def leaderboard(request):
+    if request.method == "GET":   
+        jbsl_url = 'https://jbsl-web.herokuapp.com/api/dga'
+        res = requests.get(jbsl_url)
+        db = res.json()
+        #sidのみ抽出
+        unique_sid = set([d['sid'] for d in db])
+        
+        #ゴリラ
+        db_gorilla = {}
+        sum_d = {}
+        for sid in unique_sid:
+            r = requests.get(jbsl_url + "?sid=" + sid + "&sort=-gorilla&limit=3")
+            db_gorilla[sid] = r.json()
+            total = round(sum([d['gorilla'] for d in db_gorilla[sid]]), 2)
+            sum_d[sid] = total
+            db_gorilla[sid][0]['total'] = total #htmlのloopで参照できるように
+        sorted_gorilla = dict(sorted(sum_d.items(), key=lambda x: x[1], reverse=True))
+        db_gorilla = {key: db_gorilla[key] for key in sorted_gorilla}
+        
+        #ダンサー
+        db_dance = {}
+        sum_d = {}
+        for sid in unique_sid:
+            r = requests.get(jbsl_url + "?sid=" + sid + "&sort=-dance&limit=3")
+            db_dance[sid] = r.json()
+            total = round(sum([d['dance'] for d in db_dance[sid]]), 2)
+            sum_d[sid] = total
+            db_dance[sid][0]['total'] = total #htmlのloopで参照できるように
+        sorted_dance = dict(sorted(sum_d.items(), key=lambda x: x[1], reverse=True))
+        db_dance = {key: db_dance[key] for key in sorted_dance}
+        
+        #ダンサー
+        db_worldtree = {}
+        sum_d = {}
+        for sid in unique_sid:
+            r = requests.get(jbsl_url + "?sid=" + sid + "&sort=dance&limit=3")
+            db_worldtree[sid] = r.json()
+            total = round(sum([d['dance'] for d in db_worldtree[sid]]), 2)
+            sum_d[sid] = total
+            db_worldtree[sid][0]['total'] = total #htmlのloopで参照できるように
+        sorted_worldtree = dict(sorted(sum_d.items(), key=lambda x: x[1], reverse=True))
+        db_worldtree = {key: db_worldtree[key] for key in sorted_worldtree}
+        
+        #大暴れ度
+        db_exiting = {}
+        sum_d = {}
+        for sid in unique_sid:
+            r = requests.get(jbsl_url + "?sid=" + sid)
+            d = r.json()
+            for i, j in enumerate(d):
+                e = float(d[i]['dance'])*2 + float(d[i]['gorilla'])
+                d[i]['exiting'] = round(e, 2)
+            db_exiting[sid] = sorted(d, key=lambda x: x['gorilla'], reverse=True)
+            if len(db_exiting[sid]) > 3:
+                db_exiting[sid] = db_exiting[sid][:3]
+            total = round(sum(d['exiting'] for d in db_exiting[sid]), 2)
+            sum_d[sid] = total
+            db_exiting[sid][0]['total'] = total
+        sorted_exiting = dict(sorted(sum_d.items(), key=lambda x: x[1], reverse=True))
+        db_exiting = {key: db_exiting[key] for key in sorted_exiting}
+        
+        #辞書型のリストが入った辞書型…
+        #db_dance['sid']の[0~2]にトップ3スコアのスコアデータ(辞書型)が入っているということ
+        
+        context = {}
+        context['db_gorilla'] = db_gorilla
+        context['db_dance'] = db_dance
+        context['db_exiting'] = db_exiting
+        context['db_worldtree'] = db_worldtree
+        
+        return render(request, 'leaderboard.html', context)
+
+def scoreboard(request):
+    #全スコアのランキング
+    if request.method == "GET":
+        jbsl_url = 'https://jbsl-web.herokuapp.com/api/dga'
+        context = {}
+        
+        res = requests.get(jbsl_url+"?sort=-dance&limit100")
+        context['dance_scoreboard'] = res.json()
+        res = requests.get(jbsl_url+"?sort=-gorilla&limit100")
+        context['gorilla_scoreboard'] = res.json()
+                
+        # 大暴れ度
+        res = requests.get(jbsl_url)
+        db = res.json()
+        i = 0
+        for data in db:
+            e = float(data['gorilla']) + float(data['dance']) * 2
+            db[i]['exiting'] = round(e, 2)
+            i += 1
+        db.sort(key=lambda d: d['exiting'], reverse=True)
+        context['exiting_scoreboard'] = db
+        
+        #ぼったち
+        wtdb = res.json()
+        wtdb.sort(key=lambda d: d['dance'], reverse=False)
+        if len(wtdb) > 100:
+            wtdb = wtdb[:100]
+        context['worldtree_scoreboard'] = wtdb
+        
+        return render(request, 'scoreboard.html', context)
+
 def analyze_replay(webplayer_url):
     parsed = urlparse(webplayer_url)
     query = parse_qs(parsed.query)
