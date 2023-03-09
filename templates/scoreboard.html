@@ -73,7 +73,7 @@
         {% endfor %}
     </tbody>
 </table>
-<table id="exiting">
+<table id="exciting">
     <caption>
         <h3>大暴れランキング</h3>
     </caption>
@@ -87,12 +87,12 @@
         </tr>
     </thead>
     <tbody>
-        {% for data in exiting_scoreboard %}
+        {% for data in exciting_scoreboard %}
         <tr>
             <td>{{ forloop.counter }}</td>
             <td style="width:150px"><a href="https://www.beatleader.xyz/u/{{ data.sid }}">{{ data.player_name }}</a>
             </td>
-            <td>{{ data.exiting }}</td>
+            <td>{{ data.exciting }}</td>
             <td><a href="https://replay.beatleader.xyz/?scoreId={{ data.beatleader }}"> Replay</a></td>
             <td style="width:500px">{{ data.song_mapper}}</td>
         </tr>
@@ -150,7 +150,7 @@
     var textD = document.getElementById("textD");
     var tableA = document.getElementById("dance");
     var tableB = document.getElementById("gorilla");
-    var tableC = document.getElementById("exiting");
+    var tableC = document.getElementById("exciting");
     var tableD = document.getElementById("worldtree");
 
     // 最初はテーブルAだけ表示する

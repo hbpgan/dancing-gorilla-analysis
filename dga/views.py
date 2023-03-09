@@ -135,10 +135,10 @@ def scoreboard(request):
         i = 0
         for data in db:
             e = float(data['gorilla']) + float(data['dance']) * 2
-            db[i]['exiting'] = round(e, 2)
+            db[i]['exciting'] = round(e, 2)
             i += 1
-        db.sort(key=lambda d: d['exiting'], reverse=True)
-        context['exiting_scoreboard'] = db
+        db.sort(key=lambda d: d['exciting'], reverse=True)
+        context['exciting_scoreboard'] = db
         
         #ぼったち
         wtdb = res.json()
@@ -243,6 +243,15 @@ def analyze_replay(webplayer_url):
         total_right_angle += rq_deg
 
     record_duration = final_note_time - first_note_time
+    # modifier付きでもnoteのtimeは通常速度の時間で記録されているため処理
+    mods = m.info.modifiers.split(',')
+    if 'FS' in mods:
+        record_duration /= 1.2
+    elif 'SF' in mods:
+        record_duration /= 1.5
+    elif 'SS' in mods:
+        record_duration /= 0.85
+    print("record duration: {}".format(record_duration))
     nps = len(m.notes) / record_duration
     print('nps: {}'.format(nps))
     hdps = total_head_distance/record_duration
