@@ -257,6 +257,8 @@ def analyze_replay(webplayer_url):
         record_duration /= 1.2
     elif 'SF' in mods:
         record_duration /= 1.5
+    elif 'SS' in mods:
+        record_duration /= 0.85
     print("record duration: {}".format(record_duration))
     nps = len(m.notes) / record_duration
     print('nps: {}'.format(nps))
