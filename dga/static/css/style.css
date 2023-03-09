@@ -7,14 +7,6 @@ input {
   text-align: center;
 }
 
-footer {
-  position: absolute;
-  left: 50%;
-  right: 0;
-  margin: auto;
-  bottom: 0;
-}
-
 table {
   margin: auto
 }
