@@ -40,7 +40,7 @@
         <tr>
             <td>{{ forloop.counter }}</td>
             <td style="width:150px"><a href="https://www.beatleader.xyz/u/{{ scores.0.sid }}">{{ scores.0.player_name }}</a></td>
-            <td>{{ scores.0.total }}</td>
+            <td>{{ scores.0.total_dance }}</td>
             <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.0.beatleader }}">{{ scores.0.dance }}</a></td>
             <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.1.beatleader }}">{{ scores.1.dance }}</a></td>
             <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.2.beatleader }}">{{ scores.2.dance }}</a></td>
@@ -67,7 +67,7 @@
         <tr>
             <td>{{ forloop.counter }}</td>
             <td style="width:150px"><a href="https://www.beatleader.xyz/u/{{ scores.0.sid }}">{{ scores.0.player_name }}</a></td>
-            <td>{{ scores.0.total }}</td>
+            <td>{{ scores.0.total_gorilla }}</td>
             <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.0.beatleader }}">{{ scores.0.gorilla }}</a></td>
             <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.1.beatleader }}">{{ scores.1.gorilla }}</a></td>
             <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.2.beatleader }}">{{ scores.2.gorilla }}</a></td>
@@ -75,7 +75,7 @@
         {% endfor %}
     </tbody>
 </table>
-<table id="exiting">
+<table id="exciting">
     <caption>
         <h3>大暴れ度ランキング</h3>
     </caption>
@@ -90,14 +90,14 @@
         </tr>
     </thead>
     <tbody>
-        {% for sid, scores in db_exiting.items %}
+        {% for sid, scores in db_exciting.items %}
         <tr>
             <td>{{ forloop.counter }}</td>
             <td style="width:150px"><a href="https://www.beatleader.xyz/u/{{ scores.0.sid }}">{{ scores.0.player_name }}</a></td>
-            <td>{{ scores.0.total }}</td>
-            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.0.beatleader }}">{{ scores.0.exiting }}</a></td>
-            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.1.beatleader }}">{{ scores.1.exiting }}</a></td>
-            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.2.beatleader }}">{{ scores.2.exiting }}</a></td>
+            <td>{{ scores.0.total_exciting }}</td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.0.beatleader }}">{{ scores.0.exciting }}</a></td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.1.beatleader }}">{{ scores.1.exciting }}</a></td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.2.beatleader }}">{{ scores.2.exciting }}</a></td>
         </tr>
         {% endfor %}
         <tr><td colspan="5" style="text-align: center;">大暴れ度: ダンサー*2 + ゴリラ</td></tr>
@@ -122,7 +122,7 @@
         <tr>
             <td>{{ forloop.counter }}</td>
             <td style="width:150px"><a href="https://www.beatleader.xyz/u/{{ scores.0.sid }}">{{ scores.0.player_name }}</a></td>
-            <td>{{ scores.0.total }}</td>
+            <td>{{ scores.0.total_worldtree }}</td>
             <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.0.beatleader }}">{{ scores.0.dance }}</a></td>
             <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.1.beatleader }}">{{ scores.1.dance }}</a></td>
             <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.2.beatleader }}">{{ scores.2.dance }}</a></td>
@@ -154,7 +154,7 @@
     var textD = document.getElementById("textD");
     var tableA = document.getElementById("dance");
     var tableB = document.getElementById("gorilla");
-    var tableC = document.getElementById("exiting");
+    var tableC = document.getElementById("exciting");
     var tableD = document.getElementById("worldtree");
 
     // 最初はテーブルAだけ表示する

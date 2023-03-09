@@ -56,72 +56,64 @@ def leaderboard(request):
         jbsl_url = 'https://jbsl-web.herokuapp.com/api/dga'
         res = requests.get(jbsl_url)
         db = res.json()
-        #sidのみ抽出
-        unique_sid = set([d['sid'] for d in db])
+
+        from collections import defaultdict
+
+        db_dance = defaultdict(list)
+        for d in db:
+            sid = d['sid']
+            db_dance[sid].append(d)
+        for key,value in db_dance.items():
+            value = sorted(value,key=lambda x : -x['dance'])[:3]
+            db_dance[key] = value
+            value[0]['total_dance'] = round(sum([x['dance'] for x in value]),2)
+        db_dance = sorted(db_dance.items(), key=lambda x : -x[1][0]['total_dance'])
+        db_dance = dict(db_dance)
+
+        db_gorilla = defaultdict(list)
+        for d in db:
+            sid = d['sid']
+            db_gorilla[sid].append(d)
+        for key,value in db_gorilla.items():
+            value = sorted(value,key=lambda x : -x['gorilla'])[:3]
+            db_gorilla[key] = value
+            value[0]['total_gorilla'] = round(sum([x['gorilla'] for x in value]),2)
+        db_gorilla = sorted(db_gorilla.items(), key=lambda x : -x[1][0]['total_gorilla'])
+        db_gorilla = dict(db_gorilla)
+
+        db_exciting = defaultdict(list)
+        for d in db:
+            sid = d['sid']
+            d['exciting'] = round(d['dance']*2 + d['gorilla'],2)
+            db_exciting[sid].append(d)
+        for key,value in db_exciting.items():
+            value = sorted(value,key=lambda x : -x['exciting'])[:3]
+            db_exciting[key] = value
+            value[0]['total_exciting'] = round(sum([x['exciting'] for x in value]),2)
+        db_exciting = sorted(db_exciting.items(), key=lambda x : -x[1][0]['total_exciting'])
+        db_exciting = dict(db_exciting)
         
-        #ゴリラ
-        db_gorilla = {}
-        sum_d = {}
-        for sid in unique_sid:
-            r = requests.get(jbsl_url + "?sid=" + sid + "&sort=-gorilla&limit=3")
-            db_gorilla[sid] = r.json()
-            total = round(sum([d['gorilla'] for d in db_gorilla[sid]]), 2)
-            sum_d[sid] = total
-            db_gorilla[sid][0]['total'] = total #htmlのloopで参照できるように
-        sorted_gorilla = dict(sorted(sum_d.items(), key=lambda x: x[1], reverse=True))
-        db_gorilla = {key: db_gorilla[key] for key in sorted_gorilla}
-        
-        #ダンサー
-        db_dance = {}
-        sum_d = {}
-        for sid in unique_sid:
-            r = requests.get(jbsl_url + "?sid=" + sid + "&sort=-dance&limit=3")
-            db_dance[sid] = r.json()
-            total = round(sum([d['dance'] for d in db_dance[sid]]), 2)
-            sum_d[sid] = total
-            db_dance[sid][0]['total'] = total #htmlのloopで参照できるように
-        sorted_dance = dict(sorted(sum_d.items(), key=lambda x: x[1], reverse=True))
-        db_dance = {key: db_dance[key] for key in sorted_dance}
-        
-        #ぼったち
-        db_worldtree = {}
-        sum_d = {}
-        for sid in unique_sid:
-            r = requests.get(jbsl_url + "?sid=" + sid + "&sort=dance&limit=3")
-            db_worldtree[sid] = r.json()
-            total = round(sum([d['dance'] for d in db_worldtree[sid]]), 2)
-            if len(db_worldtree[sid]) < 3:
-                total = 999
-            sum_d[sid] = total
-            db_worldtree[sid][0]['total'] = total #htmlのloopで参照できるように
-        sorted_worldtree = dict(sorted(sum_d.items(), key=lambda x: x[1], reverse=False))
-        db_worldtree = {key: db_worldtree[key] for key in sorted_worldtree}
-        
-        #大暴れ度
-        db_exiting = {}
-        sum_d = {}
-        for sid in unique_sid:
-            r = requests.get(jbsl_url + "?sid=" + sid)
-            d = r.json()
-            for i, j in enumerate(d):
-                e = float(d[i]['dance'])*2 + float(d[i]['gorilla'])
-                d[i]['exiting'] = round(e, 2)
-            db_exiting[sid] = sorted(d, key=lambda x: x['gorilla'], reverse=True)
-            if len(db_exiting[sid]) > 3:
-                db_exiting[sid] = db_exiting[sid][:3]
-            total = round(sum(d['exiting'] for d in db_exiting[sid]), 2)
-            sum_d[sid] = total
-            db_exiting[sid][0]['total'] = total
-        sorted_exiting = dict(sorted(sum_d.items(), key=lambda x: x[1], reverse=True))
-        db_exiting = {key: db_exiting[key] for key in sorted_exiting}
-        
+        db_worldtree = defaultdict(list)
+        for d in db:
+            sid = d['sid']
+            db_worldtree[sid].append(d)
+        for key,value in db_gorilla.items():
+            value = sorted(value,key=lambda x : x['dance'])[:3]
+            db_worldtree[key] = value
+            if len(value) < 3:
+                value[0]['total_worldtree'] = 999
+            else:
+                value[0]['total_worldtree'] = round(sum([x['dance'] for x in value]),2)
+        db_worldtree = sorted(db_worldtree.items(), key=lambda x : x[1][0]['total_worldtree'])
+        db_worldtree = dict(db_worldtree)
+
         #辞書型のリストが入った辞書型…
         #db_dance['sid']の[0~2]にトップ3スコアのスコアデータ(辞書型)が入っているということ
         
         context = {}
         context['db_gorilla'] = db_gorilla
         context['db_dance'] = db_dance
-        context['db_exiting'] = db_exiting
+        context['db_exciting'] = db_exciting
         context['db_worldtree'] = db_worldtree
         
         return render(request, 'leaderboard.html', context)
@@ -251,15 +243,6 @@ def analyze_replay(webplayer_url):
         total_right_angle += rq_deg
 
     record_duration = final_note_time - first_note_time
-    # modifier付きでもnoteのtimeは通常速度の時間で記録されているため処理
-    mods = m.info.modifiers.split(',')
-    if 'FS' in mods:
-        record_duration /= 1.2
-    elif 'SF' in mods:
-        record_duration /= 1.5
-    elif 'SS' in mods:
-        record_duration /= 0.85
-    print("record duration: {}".format(record_duration))
     nps = len(m.notes) / record_duration
     print('nps: {}'.format(nps))
     hdps = total_head_distance/record_duration
