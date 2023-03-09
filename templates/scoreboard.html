@@ -10,6 +10,11 @@
     <title>Scoreboard</title>
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
 </head>
 <h2 class="center">Scoreboard</h2>
 <body class="center">
@@ -22,7 +27,7 @@
 <a id="textD" href="#">ぼったちランキング</a>
 <br>
 </body>
-<div style="display:flex; justify-content:center; text-align: left;">
+<div class="table table-responsive" style="display:flex; justify-content:center; text-align: left;">
 <table id="dance">
     <caption><h3>ダンサー指数ランキング</h3></caption>
     <thead>

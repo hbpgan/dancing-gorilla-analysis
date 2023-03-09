@@ -251,6 +251,13 @@ def analyze_replay(webplayer_url):
         total_right_angle += rq_deg
 
     record_duration = final_note_time - first_note_time
+    # modifier付きでもnoteのtimeは通常速度の時間で記録されているため処理
+    mods = m.info.modifiers.split(',')
+    if 'FS' in mods:
+        record_duration /= 1.2
+    elif 'SF' in mods:
+        record_duration /= 1.5
+    print("record duration: {}".format(record_duration))
     nps = len(m.notes) / record_duration
     print('nps: {}'.format(nps))
     hdps = total_head_distance/record_duration
