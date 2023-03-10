@@ -277,7 +277,7 @@ def analyze_replay(webplayer_url):
     print('ダンサー指数は{}です。'.format(round(headbanging,2)))
     total_hand_distance = total_left_distance + total_right_distance
     total_hand_angle = total_left_angle + total_right_angle
-    gorilla = (total_hand_distance/record_duration)*10 + ((total_hand_angle/record_duration)/nps)/3
+    gorilla = (total_hand_distance/record_duration)*10 + ((total_hand_angle/record_duration)/max(nps, 1))/3
     print('ゴリラ指数は{}です。'.format(round(gorilla,2)))
     
     # わぁいif文、あかりif文大好き
