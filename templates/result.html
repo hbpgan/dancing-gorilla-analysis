@@ -53,8 +53,8 @@
 <p class="center">(<a href="{% url 'qa' %}">診断に関するQ&amp;A</a>)</p>
 <br>
 <h3 class="center"><a href="{% url 'leaderboard' %}">プレイヤーランキング</a>　　<a href="{% url 'scoreboard' %}">スコアランキング</a></h3>
-<p class="center">この分析結果をランキングに登録しますか？
-	<br><div style="font-weight: bold; text-align: center;">(あなた自身のリプレイでない場合、必ずプレイヤー本人に許可を得てください)</div></p>
+<p class="center">この分析結果をランキングに登録しますか？<br>(いちおう競技性を確保するため記録時間が30秒未満の譜面は弾かれます)
+	<br><div style="font-weight: bold; text-align: center;">あなた自身のリプレイでない場合、必ずプレイヤー本人に許可を得てください。</div></p>
 	<div style="text-align: center;">
 		<form action="{% url 'registration' %}" method="post">
 			{% csrf_token %}
@@ -65,6 +65,7 @@
 			<input type="hidden" name="song_info" value="{{m.info.songName}} [{{m.info.difficulty}}] ({{m.info.mapper}})">
 			<input type="hidden" name="player_name" value="{{m.info.playerName}}">
 			<input type="hidden" name="player_id" value="{{m.info.playerId}}">
+			<input type="hidden" name="record_duration" value="{{record_duration}}">
 			<input type="submit" value="登録する" onclick="return confirm('本当に登録しますか？');">
 	 	</form>
 	</div>

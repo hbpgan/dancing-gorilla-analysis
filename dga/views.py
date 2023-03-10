@@ -34,6 +34,7 @@ def result(request):
 def registration(request):
   if request.method == "POST":
     data = request.POST
+    
     post_url = 'https://jbsl-web.herokuapp.com/api/dga/post'
     post_data = {
         'dance' : round(float(data['headbanging']), 2),
@@ -45,11 +46,16 @@ def registration(request):
         'token' : settings.JBSL_TOKEN
     }
     
-    res = requests.post(post_url,data=post_data)
-    
-    context = res.json()
-    print(res.json())    
-    return render(request, 'registration.html', context)
+    if float(data['record_duration']) > 30:
+        res = requests.post(post_url,data=post_data)
+        context = res.json()
+        print(res.json())    
+        return render(request, 'registration.html', context)
+    else:
+        message = "記録時間(最初のノーツから最後のノーツまで)が30秒未満のため登録できません。"
+        print(message)
+        context = {'message': message}
+        return render(request, 'registration.html', context)
 
 def leaderboard(request):
     if request.method == "GET":   
