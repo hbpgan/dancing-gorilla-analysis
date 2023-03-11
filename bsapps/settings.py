@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "dga.apps.DgaConfig",
+    "django.contrib.humanize",
 ]
 
 MIDDLEWARE = [
