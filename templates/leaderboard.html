@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -37,13 +38,13 @@
     </thead>
     <tbody>
         {% for sid, scores in db_dance.items %}
-        <tr>
+        <tr style="text-align:right">
             <td>{{ forloop.counter }}</td>
-            <td style="width:150px"><a href="https://www.beatleader.xyz/u/{{ scores.0.sid }}">{{ scores.0.player_name }}</a></td>
-            <td>{{ scores.0.total_dance }}</td>
-            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.0.beatleader }}">{{ scores.0.dance }}</a></td>
-            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.1.beatleader }}">{{ scores.1.dance }}</a></td>
-            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.2.beatleader }}">{{ scores.2.dance }}</a></td>
+            <td style="width:150px;text-align:left"><a href="https://www.beatleader.xyz/u/{{ scores.0.sid }}">{{ scores.0.player_name }}</a></td>
+            <td>{{ scores.0.total_dance|floatformat:2|intcomma }}</td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.0.beatleader }}">{{ scores.0.dance|floatformat:2|intcomma }}</a></td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.1.beatleader }}">{{ scores.1.dance|floatformat:2|intcomma }}</a></td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.2.beatleader }}">{{ scores.2.dance|floatformat:2|intcomma }}</a></td>
         </tr>
         {% endfor %}
     </tbody>
@@ -64,13 +65,13 @@
     </thead>
     <tbody>
         {% for sid, scores in db_gorilla.items %}
-        <tr>
+        <tr style="text-align:right">
             <td>{{ forloop.counter }}</td>
-            <td style="width:150px"><a href="https://www.beatleader.xyz/u/{{ scores.0.sid }}">{{ scores.0.player_name }}</a></td>
-            <td>{{ scores.0.total_gorilla }}</td>
-            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.0.beatleader }}">{{ scores.0.gorilla }}</a></td>
-            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.1.beatleader }}">{{ scores.1.gorilla }}</a></td>
-            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.2.beatleader }}">{{ scores.2.gorilla }}</a></td>
+            <td style="width:150px;text-align:left"><a href="https://www.beatleader.xyz/u/{{ scores.0.sid }}">{{ scores.0.player_name }}</a></td>
+            <td>{{ scores.0.total_gorilla|floatformat:2|intcomma }}</td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.0.beatleader }}">{{ scores.0.gorilla|floatformat:2|intcomma }}</a></td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.1.beatleader }}">{{ scores.1.gorilla|floatformat:2|intcomma }}</a></td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.2.beatleader }}">{{ scores.2.gorilla|floatformat:2|intcomma }}</a></td>
         </tr>
         {% endfor %}
     </tbody>
@@ -91,13 +92,13 @@
     </thead>
     <tbody>
         {% for sid, scores in db_exciting.items %}
-        <tr>
+        <tr style="text-align:right">
             <td>{{ forloop.counter }}</td>
-            <td style="width:150px"><a href="https://www.beatleader.xyz/u/{{ scores.0.sid }}">{{ scores.0.player_name }}</a></td>
-            <td>{{ scores.0.total_exciting }}</td>
-            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.0.beatleader }}">{{ scores.0.exciting }}</a></td>
-            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.1.beatleader }}">{{ scores.1.exciting }}</a></td>
-            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.2.beatleader }}">{{ scores.2.exciting }}</a></td>
+            <td style="width:150px;text-align:left"><a href="https://www.beatleader.xyz/u/{{ scores.0.sid }}">{{ scores.0.player_name }}</a></td>
+            <td>{{ scores.0.total_exciting|floatformat:2|intcomma }}</td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.0.beatleader }}">{{ scores.0.exciting|floatformat:2|intcomma }}</a></td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.1.beatleader }}">{{ scores.1.exciting|floatformat:2|intcomma }}</a></td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.2.beatleader }}">{{ scores.2.exciting|floatformat:2|intcomma }}</a></td>
         </tr>
         {% endfor %}
         <tr><td colspan="5" style="text-align: center;">大暴れ度: ダンサー*2 + ゴリラ</td></tr>
@@ -119,13 +120,13 @@
     </thead>
     <tbody>
         {% for sid, scores in db_worldtree.items %}
-        <tr>
+        <tr style="text-align:right">
             <td>{{ forloop.counter }}</td>
-            <td style="width:150px"><a href="https://www.beatleader.xyz/u/{{ scores.0.sid }}">{{ scores.0.player_name }}</a></td>
-            <td>{{ scores.0.total_worldtree }}</td>
-            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.0.beatleader }}">{{ scores.0.dance }}</a></td>
-            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.1.beatleader }}">{{ scores.1.dance }}</a></td>
-            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.2.beatleader }}">{{ scores.2.dance }}</a></td>
+            <td style="width:150px;text-align:left"><a href="https://www.beatleader.xyz/u/{{ scores.0.sid }}">{{ scores.0.player_name }}</a></td>
+            <td>{{ scores.0.total_worldtree|floatformat:2|intcomma }}</td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.0.beatleader }}">{{ scores.0.dance|floatformat:2|intcomma }}</a></td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.1.beatleader }}">{{ scores.1.dance|floatformat:2|intcomma }}</a></td>
+            <td><a href="https://replay.beatleader.xyz/?scoreId={{ scores.2.beatleader }}">{{ scores.2.dance|floatformat:2|intcomma }}</a></td>
         </tr>
         {% endfor %}
         <tr><td colspan="5" style="text-align: center;">※スコアを3つ以上送信しなければTotal Scoreが999になります</td></tr>
