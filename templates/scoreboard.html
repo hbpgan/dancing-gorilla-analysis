@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -37,13 +38,13 @@
     </thead>
     <tbody>
         {% for data in dance_scoreboard %}
-        <tr>
+        <tr style="text-align:right">
             <td>{{ forloop.counter }}</td>
-            <td style="width:150px"><a href="https://www.beatleader.xyz/u/{{ data.sid }}">{{ data.player_name }}</a></td>
-            <td>{{ data.dance }}</td>
-            <td>{{ data.gorilla }}</td>
+            <td style="width:150px;text-align:left"><a href="https://www.beatleader.xyz/u/{{ data.sid }}">{{ data.player_name }}</a></td>
+            <td>{{ data.dance|floatformat:2|intcomma }}</td>
+            <td>{{ data.gorilla|floatformat:2|intcomma }}</td>
             <td><a href="https://replay.beatleader.xyz/?scoreId={{ data.beatleader }}"> Replay</a></td>
-            <td style="width:500px">{{ data.song_mapper}}</td>
+            <td style="width:500px; text-align:left">{{ data.song_mapper}}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -62,13 +63,13 @@
     </thead>
     <tbody>
         {% for data in gorilla_scoreboard %}
-        <tr>
+        <tr style="text-align:right">
             <td>{{ forloop.counter }}</td>
-            <td style="width:150px"><a href="https://www.beatleader.xyz/u/{{ data.sid }}">{{ data.player_name }}</a></td>
-            <td>{{ data.dance }}</td>
-            <td>{{ data.gorilla }}</td>
+            <td style="width:150px;text-align:left"><a href="https://www.beatleader.xyz/u/{{ data.sid }}">{{ data.player_name }}</a></td>
+            <td>{{ data.dance|floatformat:2|intcomma }}</td>
+            <td>{{ data.gorilla|floatformat:2|intcomma }}</td>
             <td><a href="https://replay.beatleader.xyz/?scoreId={{ data.beatleader }}"> Replay</a></td>
-            <td style="width:500px">{{ data.song_mapper}}</td>
+            <td style="width:500px; text-align:left">{{ data.song_mapper}}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -88,13 +89,13 @@
     </thead>
     <tbody>
         {% for data in exciting_scoreboard %}
-        <tr>
+        <tr style="text-align:right">
             <td>{{ forloop.counter }}</td>
-            <td style="width:150px"><a href="https://www.beatleader.xyz/u/{{ data.sid }}">{{ data.player_name }}</a>
+            <td style="width:150px;text-align:left"><a href="https://www.beatleader.xyz/u/{{ data.sid }}">{{ data.player_name }}</a>
             </td>
             <td>{{ data.exciting }}</td>
             <td><a href="https://replay.beatleader.xyz/?scoreId={{ data.beatleader }}"> Replay</a></td>
-            <td style="width:500px">{{ data.song_mapper}}</td>
+            <td style="width:500px; text-align:left">{{ data.song_mapper}}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -115,14 +116,14 @@
     </thead>
     <tbody>
         {% for data in worldtree_scoreboard %}
-        <tr>
+        <tr style="text-align:right">
             <td>{{ forloop.counter }}</td>
-            <td style="width:150px"><a href="https://www.beatleader.xyz/u/{{ data.sid }}">{{ data.player_name }}</a>
+            <td style="width:150px;text-align:left"><a href="https://www.beatleader.xyz/u/{{ data.sid }}">{{ data.player_name }}</a>
             </td>
-            <td>{{ data.dance }}</td>
-            <td>{{ data.gorilla }}</td>
+            <td>{{ data.dance|floatformat:2|intcomma }}</td>
+            <td>{{ data.gorilla|floatformat:2|intcomma }}</td>
             <td><a href="https://replay.beatleader.xyz/?scoreId={{ data.beatleader }}"> Replay</a></td>
-            <td style="width:500px">{{ data.song_mapper}}</td>
+            <td style="width:500px; text-align:left">{{ data.song_mapper}}</td>
         </tr>
         {% endfor %}
     </tbody>
